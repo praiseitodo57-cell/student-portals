@@ -7,6 +7,7 @@ export default function (){
     const router = useRouter();
   const [user, setUser] = useState<any>(null);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [profileOpen, setProfileOpen] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -19,6 +20,13 @@ export default function (){
       setUser(JSON.parse(storedUser));
     }
   }, [router]);
+
+  useEffect(() => {
+  const close = () => setProfileOpen(false);
+  if (profileOpen) document.addEventListener("click", close);
+  return () => document.removeEventListener("click", close);
+}, [profileOpen]);
+
 
   const router1 = useRouter();
   const [user1, setUser1] = useState<any>(null);
@@ -116,10 +124,19 @@ export default function (){
                     <div className="group">
                         
                             
-                        <div className="rounded-lg flex py-1 px-2 gap-4 items-center hover:bg-primary/5">
+                        <div 
+                          onClick={(e) => {
+                                e.stopPropagation();
+                                setProfileOpen(prev => !prev);
+                                }}
+                        className="relative rounded-lg flex py-1 px-2 gap-4 items-center hover:bg-primary/5 cursor-pointer">
+                           
+                          
+
                            {user.profileImage ? (
                             <img
                                 src={user.profileImage}
+                                onClick={() => setProfileOpen(prev => !prev)}
                                 className="w-11 h-11 rounded-full  mx-auto object-cover"
                             />
                             ) : (
@@ -129,8 +146,13 @@ export default function (){
                             )}
                           
                           <div className="font-medium text-xs hidden md:block">{user1.lastName}</div>
-                         <section role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1} className="bg-white border border-gray-300 rounded-md shadow-2xl ring-black text-sm origin-top-right right-2 w-56 z-50 absolute hidden focus:outline-none group-hover:inline-block mt-75">
-                            <a tabIndex={-1} role="menuitem" id="user-profile" href="/bio-data" className="border-b bg-gray-100 p-2 block hover:bg-primary/5 hover:text-primary">
+                        <section role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1} className={`
+                                            bg-white border border-gray-300 rounded-md shadow-2xl
+                                            text-sm origin-top-right right-2 w-56 z-50 absolute
+                                            focus:outline-none mt-5
+                                            ${profileOpen ? "block" : "hidden"}
+                                        `}>
+                             <a tabIndex={-1} role="menuitem" id="user-profile" href="" className="border-b bg-gray-100 p-2 block hover:bg-primary/5 hover:text-primary">
                             {user1.profileImage ? (
                             <img
                                 src={user1.profileImage}
@@ -299,7 +321,7 @@ export default function (){
                                     alt="logo"
                                     className="rounded-3xl object-cover transition-transform duration-300 group-hover:scale-110 w-16 h-16"
                                   />
-                                    <div className="font-medium text-sm pt-2 pb-1 capitalize md:text-lg text-gray-500">Coures</div>
+                                    <div className="font-medium text-sm pt-2 pb-1 capitalize md:text-lg text-gray-500">Courses</div>
                                     <div className="text-xs text-gray-500">
                                         <span>&nbsp; 0/123 completed</span>
                                     </div>
@@ -315,7 +337,7 @@ export default function (){
                                     alt="logo"
                                     className="rounded-3xl object-cover transition-transform duration-300 group-hover:scale-110 w-16 h-16"
                                   />
-                                  <div className="font-medium text-sm pt-2 pb-1 capitalize md:text-lg text-gray-500">Refreach Payment Status</div>
+                                  <div className="font-medium text-sm pt-2 pb-1 capitalize md:text-lg text-gray-500">Refresh Payment Status</div>
                                   <div className="text-xs text-gray-500"></div>
                             </div>
 
