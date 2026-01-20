@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 export default function (){
     const router = useRouter();
   const [user, setUser] = useState<any>(null);
+    const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     const storedUser = localStorage.getItem ("currentUser");
+  
 
     if (!isLoggedIn || !storedUser) {
       router.push("/"); 
@@ -76,18 +78,22 @@ export default function (){
             <main className="flex flex-col h-screen max-h-screen bg-primary/5 overflow-hidden pb-5">
               {user1 &&(
                 
-              <header className="bg-white shadow-xl flex py-2 px-4 items-center justify-between md:px-8">
+              <header className="bg-white shadow-xl flex flex-wrap py-2 px-4 items-center justify-between md:px-8">
                  
                 <div className="block pb-2 md:hidden">
                     <nav className="block">
-                        <button className="text-gray-500 w-10 h-10 relative focus:outline-none">
-                            <span className="sr-only">Open main menu</span>
-                            <div className="block w-5 absolute left-1/2 top-1/2 transform-translate-x-1/2 -translate-y-1/2">
-                              <span aria-hidden="true" className="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out-translate-y-1.5"></span>
-                              <span aria-hidden="true" className="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out-translate-y-1.5"></span>
-                              <span aria-hidden="true" className="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out-translate-y-1.5"></span>
-                            </div>
-                        </button>
+                    <button
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        className="text-gray-500 w-10 h-10 relative focus:outline-none"
+                        >
+                        <span className="sr-only">Open main menu</span>
+
+                        <div className="block w-5 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <span className="block absolute h-0.5 w-5 bg-current"></span>
+                            <span className="block absolute h-0.5 w-5 bg-current mt-1.5"></span>
+                            <span className="block absolute h-0.5 w-5 bg-current mt-3"></span>
+                        </div>
+                     </button>
                     </nav>
                 </div>
                 <h1 className="flex-shrink-0 leading-none">
@@ -184,64 +190,65 @@ export default function (){
                 <nav className="overflow-hidden md:h-full">
                     <nav className="text-sm overflow-hidden">
                         <ul className="pl-0">
-                            <div className="p-2 bg-transparent absolute md:relative h-screen hidden md:block">
-                                <li className="block w-50">
-                                    <a href="" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                            
+                            <div className={`p-2 absolute bg-blue-300 text-white md:bg-transparent absolute md:relative h-screen  ${menuOpen ? "block" : "hidden"} md:block`}>
+                                <li className="block w-50 ">
+                                    <a href="" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><LayoutGrid /></div>
                                        <div className="whitespace-nowrap block mt-1">Dashboard</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><FileUser/></div>
                                        <div className="whitespace-nowrap block mt-1">Student Data</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><CreditCard/></div>
                                        <div className="whitespace-nowrap block mt-1">Payments</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><BookOpenText /></div>
                                        <div className="whitespace-nowrap block mt-1">Course Registration</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><BookOpenCheck /></div>
                                        <div className="whitespace-nowrap block mt-1">Results</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"> <BookX/></div>
                                        <div className="whitespace-nowrap block mt-1">Appointment</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><Vote /></div>
                                        <div className="whitespace-nowrap block mt-1">Election</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><House /></div>
                                        <div className="whitespace-nowrap block mt-1">Accommodation</div>
                                     </a>
                                 </li>
                                 <li className="block">
-                                    <a href="/" className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <a href="/" className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><NotebookPen /></div>
                                        <div className="whitespace-nowrap block mt-1">Student Application </div>
                                     </a>
                                 </li>
 
                                 <li className="block">
-                                    <button onClick={logout} className="flex flex-row p-3 text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100 border-t-2 md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
+                                    <button onClick={logout} className="flex flex-row p-3 text-white md:text-gray-600 gap-1 duration-300 items-center hover:text-blue-200 focus:bg-blue-100  md:border-0 md:border-r-2 border-white md:!border-blue-100 p-5">
                                        <div className="text-lg material-icons inline-block"><LogOut /></div>
                                        <div className="whitespace-nowrap block mt-1">Logout </div>
                                     </button>
@@ -250,10 +257,10 @@ export default function (){
                         </ul>
                     </nav>
                 </nav>
-                <main className="h-full max-h-full flex-1 pb-28 pt-2 pl-4 pr-4 overflow-y-auto md:pb-20">
+                <main className="h-full max-h-full flex-1 pb-28 pt-2  px-3 sm:px-4 md:px-6 overflow-y-auto md:pb-20">
                     <div className="flex flex-col pb-4 gap-4">
                          {user &&(
-                        <section className="bg-blue-300 rounded-md text-white p-4 lg:p-6 w-240">
+                        <section className="bg-blue-300 rounded-md text-white p-4 lg:p-6 w-full lg:w-240">
                             <div className="font-black text-lg md:text-xl">{user.firstName} {user.lastName}</div>
                             <div className="flex flex-col gap-8 justify-between md:flex-row md:gap-4 md:items-end">
                                 <div className="pt-4">
@@ -281,7 +288,7 @@ export default function (){
                             </div>
                         </section>
                         )}
-                        <section className="grid gap-3 pt-3 pb-20 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-240">
+                        <section className="grid gap-3 pt-3 pb-20 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full lg:w-240">
                             <div className="col-span-2 sm:grid-cols-1">
                                 <div className="bg-white rounded-md cursor-pointer h-full border-2 text-left p-6 transform duration-200 group hover:boder border-blue-400 hover:scale-105 pd-2">
 

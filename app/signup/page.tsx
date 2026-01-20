@@ -57,7 +57,8 @@ export default function Sign() {
 
   return (
       <main className="bg-gradient-to-t flex min-h-screen bg-gray-100 w-full items-center justify-center md:p-2 ">
-        <section className="rounded-md shadow-2xl  w-full overflow-hidden lg:max-w-screen-lg h-150">
+         <section  //className="rounded-md shadow-2xl  w-full overflow-hidden lg:max-w-screen-lg h-150">
+          className="w-full max-w-full sm:max-screen-sm md:max-w-screen-md lg:max-screen-lg mx-auto rounded-md shadow-2xl overflow-hidden p-4 md:p-6 lg:p-8">
           <div className="rounded-md w-full justify-center overflow-hidden md:flex h-200">
             <aside className="bg-gray-50 bg-opacity-50 text-primary p-8 hidden justify-center items-center md:flex  ">
               <div className="bg-contain bg-center bg-no-repeat bg-opacity-50 h-64 text-white w-64 mb-60">
